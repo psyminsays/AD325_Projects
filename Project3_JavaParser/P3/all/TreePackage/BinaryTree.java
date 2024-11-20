@@ -50,6 +50,14 @@ public class BinaryTree<T> implements BinaryTreeInterface<T> {
         return null;
     }
 
+    public void iterativePreorderTraverse() {
+
+    }
+
+    public void iterativeInorderTraverse() {
+
+    }
+
     // Inner class to represent the node of the tree
     private static class TreeNode<T> {
         T data;

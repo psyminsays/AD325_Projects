@@ -1,15 +1,17 @@
+package all;
+
 import java.io.*;
 import java.util.*;
 import java.util.regex.*;
 
 public class Parser {
-    private LinkedList reservedWordsList; // Linked list to store the reserved words
-    private LinkedList identifiersList;   // Linked list to store the user-defined identifiers
+    private final List<String> reservedWordsList; // List to store the reserved words
+    private final Set<String> identifiersSet;     // Set to store the user-defined identifiers
 
     // Constructor to initialize reserved words from a file
     public Parser(String reservedWordsFile) {
-        reservedWordsList = new LinkedList();
-        identifiersList = new LinkedList();
+        reservedWordsList = new ArrayList<>();
+        identifiersSet = new HashSet<>();
         initializeReservedWords(reservedWordsFile);
     }
 
@@ -19,27 +21,25 @@ public class Parser {
             String word;
             while ((word = reader.readLine()) != null) {
                 word = word.trim();
-                reservedWordsList.push(word);  // Add each reserved word to the list
+                reservedWordsList.add(word);  // Add each reserved word to the list
             }
             // After inserting all words into the list, convert it to a balanced BST
             setBalancedBST(reservedWordsList);
         } catch (IOException e) {
-            System.out.println("Error reading reserved words file: " + e.getMessage());
+            System.out.println(STR."Error reading reserved words file: \{e.getMessage()}");
         }
     }
 
-    // Method to set a balanced BST from the linked list of reserved words
-    public void setBalancedBST(LinkedList list) {
-        // Convert the linked list to a balanced binary search tree (BST)
-        LinkedList.TNode root = list.sortedListToBST();
-        list.setRoot(root); // Set the root of the list's tree
+    // Method to set a balanced BST from the list of reserved words
+    public void setBalancedBST(List<String> list) {
+        // Convert the list to a balanced binary search tree (BST)
+        Collections.sort(list);  // Sort the list to simulate an ordered BST
     }
 
-    // Method to extract identifiers from a Java program and add them to the identifiers BST
+    // Method to extract identifiers from a Java program and add them to the identifiers set
     public void getIdentifiers(String javaProgram) {
         // Regular expression to match valid Java identifiers
         String regex = "\\b[A-Za-z_][A-Za-z0-9_]*\\b";
-        Set<String> identifiers = new HashSet<>();
 
         // Use Pattern and Matcher to find all identifiers in the Java program
         Matcher matcher = Pattern.compile(regex).matcher(javaProgram);
@@ -48,17 +48,20 @@ public class Parser {
 
             // Exclude reserved words and avoid duplicates
             if (!reservedWordsList.contains(identifier)) {
-                identifiers.add(identifier);
-                identifiersList.push(identifier);  // Add identifier to the identifiers list
+                identifiersSet.add(identifier);
             }
         }
 
-        // Print reserved words from the BST (in-order traversal)
+        // Print reserved words
         System.out.println("Reserved Words Found:");
-        reservedWordsList.printList();
+        for (String word : reservedWordsList) {
+            System.out.println(word);
+        }
 
-        // Print identifiers from the BST (in-order traversal)
+        // Print identifiers
         System.out.println("\nUser-Defined Identifiers Found:");
-        identifiersList.printList();
+        for (String identifier : identifiersSet) {
+            System.out.println(identifier);
+        }
     }
 }
