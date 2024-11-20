@@ -1,4 +1,4 @@
-package TreePackage;
+package all.TreePackage;
 
 public interface TreeInterface<T>
 {

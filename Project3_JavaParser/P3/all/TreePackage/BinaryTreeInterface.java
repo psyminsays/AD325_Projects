@@ -1,4 +1,4 @@
-package TreePackage;
+package all.TreePackage;
 
 public interface BinaryTreeInterface<T> extends TreeInterface<T>,
         TreeIteratorInterface<T>

@@ -1,13 +1,7 @@
-package TreePackage;
+package all.TreePackage;
 
 
-import Week7_Incomplete.StackAndQueueInterface.LinkedQueue;
-import Week7_Incomplete.StackAndQueueInterface.LinkedStack;
-import Week7_Incomplete.StackAndQueueInterface.QueueInterface;
-import Week7_Incomplete.StackAndQueueInterface.StackInterface;
 
-import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 /**
  A class that implements the ADT binary tree.
@@ -18,7 +12,7 @@ import java.util.NoSuchElementException;
  */
 public class BinaryTree<T> implements BinaryTreeInterface<T>
 {
-    private BinaryNode<T> root;
+    private TreePackage.BinaryNode<T> root;
 
     public BinaryTree()
     {
@@ -27,7 +21,7 @@ public class BinaryTree<T> implements BinaryTreeInterface<T>
 
     public BinaryTree(T rootData)
     {
-        root = new BinaryNode<>(rootData);
+        root = new TreePackage.BinaryNode<>(rootData);
     } // end constructor
 
     public BinaryTree(T rootData, BinaryTreeInterface<T> leftTree, BinaryTreeInterface<T> rightTree)

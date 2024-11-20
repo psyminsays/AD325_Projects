@@ -1,7 +1,5 @@
 package all.TreePackage;
 
-import Week7_Complete.TreePackage.TreeInterface;
-
 import java.util.Iterator;
 
 public interface SearchTreeInterface<T extends Comparable<? super T>>
