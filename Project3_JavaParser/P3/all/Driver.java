@@ -1,7 +1,7 @@
 package all;
 
 public class Driver {
-    public static void main(String[] args) {
+    public static void main() {
         // Initialize Parser with a file containing reserved words
         String reservedWordsFile = "reservedWords.txt"; // path to your reserved words file
         Parser parser = new Parser(reservedWordsFile);
