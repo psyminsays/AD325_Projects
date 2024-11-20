@@ -1,4 +1,4 @@
-package StackAndQueuePackage;
+package all.StackAndQueuePackage;
 
 import java.util.EmptyStackException;
 
@@ -13,8 +13,7 @@ public final class LinkedStack<T> implements StackInterface<T>
 	
 	public void push(T newEntry)
 	{
-		Node newNode = new Node(newEntry, topNode);
-		topNode = newNode;
+        topNode = new Node(newEntry, topNode);
 //    topNode = new Node(newEntry, topNode); // Alternate code
 	} // end push
 
