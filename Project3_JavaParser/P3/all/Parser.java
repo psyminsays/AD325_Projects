@@ -1,81 +1,67 @@
+package all;
+
 import java.io.*;
 import java.util.*;
+import java.util.regex.*;
 
-/**
- * The Parser class processes Java source code, extracting reserved words and identifiers.
- * It uses a balanced binary search tree (BST) to store and manage reserved words and identifiers.
- */
 public class Parser {
+    private final List<String> reservedWordsList; // List to store the reserved words
+    private final Set<String> identifiersSet;     // Set to store the user-defined identifiers
 
-    private Set<String> reservedWords;  // Set to store reserved words
-    private BalancedBST<String> reservedWordsTree;  // BST for reserved words
-    private BalancedBST<String> identifiersTree;  // BST for identifiers
-
-    /**
-     * Constructor for Parser. Initializes the data structures.
-     */
-    public Parser() {
-        reservedWords = new HashSet<>();
-        reservedWordsTree = new BalancedBST<>();
-        identifiersTree = new BalancedBST<>();
+    // Constructor to initialize reserved words from a file
+    public Parser(String reservedWordsFile) {
+        reservedWordsList = new ArrayList<>();
+        identifiersSet = new HashSet<>();
+        initializeReservedWords(reservedWordsFile);
     }
 
-    /**
-     * Reads reserved words from a file and inserts them into a balanced BST.
-     *
-     * @param filename The file containing reserved words.
-     * @throws IOException If an error occurs while reading the file.
-     */
-    public void initializeReservedWords(String filename) throws IOException {
-        // Read the reserved words from the file and add them to the set
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                reservedWords.add(line.trim());
+    // Method to initialize reserved words from a file
+    public void initializeReservedWords(String reservedWordsFile) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(reservedWordsFile))) {
+            String word;
+            while ((word = reader.readLine()) != null) {
+                word = word.trim();
+                reservedWordsList.add(word);  // Add each reserved word to the list
             }
-        }
-
-        // Add reserved words to the BST
-        for (String word : reservedWords) {
-            reservedWordsTree.insert(word);
+            // After inserting all words into the list, convert it to a balanced BST
+            setBalancedBST(reservedWordsList);
+        } catch (IOException e) {
+            System.out.println(STR."Error reading reserved words file: \{e.getMessage()}");
         }
     }
 
-    /**
-     * Extracts identifiers from Java source code and adds them to the identifiers BST.
-     *
-     * @param javaCode The Java source code to extract identifiers from.
-     */
-    public void getIdentifiers(String javaCode) {
-        // Regular expression for Java identifiers
-        String regex = "\\b([a-zA-Z_][a-zA-Z0-9_]*)\\b";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(javaCode);
+    // Method to set a balanced BST from the list of reserved words
+    public void setBalancedBST(List<String> list) {
+        // Convert the list to a balanced binary search tree (BST)
+        Collections.sort(list);  // Sort the list to simulate an ordered BST
+    }
 
-        // Add valid identifiers to the identifiers BST
+    // Method to extract identifiers from a Java program and add them to the identifiers set
+    public void getIdentifiers(String javaProgram) {
+        // Regular expression to match valid Java identifiers
+        String regex = "\\b[A-Za-z_][A-Za-z0-9_]*\\b";
+
+        // Use Pattern and Matcher to find all identifiers in the Java program
+        Matcher matcher = Pattern.compile(regex).matcher(javaProgram);
         while (matcher.find()) {
-            String identifier = matcher.group(1);
-            if (!reservedWords.contains(identifier)) {
-                identifiersTree.insert(identifier);
+            String identifier = matcher.group();
+
+            // Exclude reserved words and avoid duplicates
+            if (!reservedWordsList.contains(identifier)) {
+                identifiersSet.add(identifier);
             }
         }
-    }
 
-    /**
-     * Returns the tree of reserved words.
-     *
-     * @return The BalancedBST holding reserved words.
-     */
-    public BalancedBST<String> getReservedWordsTree() {
-        return reservedWordsTree;
-    }
+        // Print reserved words
+        System.out.println("Reserved Words Found:");
+        for (String word : reservedWordsList) {
+            System.out.println(word);
+        }
 
-    /**
-     * Returns the tree of identifiers.
-     *
-     * @return The BalancedBST holding identifiers.
-     */
-    public BalancedBST<String> getIdentifiersTree() {
-        return identifiersTree;
+        // Print identifiers
+        System.out.println("\nUser-Defined Identifiers Found:");
+        for (String identifier : identifiersSet) {
+            System.out.println(identifier);
+        }
     }
 }

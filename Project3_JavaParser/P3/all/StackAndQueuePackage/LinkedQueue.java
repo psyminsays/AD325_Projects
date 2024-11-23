@@ -1,4 +1,4 @@
-package StackAndQueuePackage;
+package all.StackAndQueuePackage;
 
 public final class LinkedQueue<T> implements QueueInterface<T>
 {

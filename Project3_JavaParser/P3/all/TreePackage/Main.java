@@ -1,4 +1,4 @@
-package TreePackage;
+package all.TreePackage;
 
 import java.util.Iterator;
 
@@ -321,17 +321,13 @@ public class Main {
         BinaryTree<String> myTree = new BinaryTree<>();
         // myTree.root is null, so myTree is empty, not null
 
-        if (myTree == null)
-            System.out.println("myTree is null--ERROR");
-        else
-        {
-            System.out.println("myTree is not null--CORRECT.");
+        System.out.println("myTree is not null--CORRECT.");
 
-            if (myTree.isEmpty())
-                System.out.println("myTree is empty--CORRECT.");
-            else
-                System.out.println("myTree.root is not empty--ERROR");
-        } // end if
+        if (myTree.isEmpty())
+            System.out.println("myTree is empty--CORRECT.");
+        else {
+            System.out.println("myTree.root is not empty--ERROR");
+        }
         System.out.println();
     } // end testEmptyTree
 
@@ -369,15 +365,15 @@ public class Main {
         aTree.setTree("A", bTree, cTree); // Desired tree rooted at A
 
         // Display root, height, number of nodes
-        System.out.println("Root of tree contains " + aTree.getRootData());
-        System.out.println("Height of tree is " + aTree.getHeight());
-        System.out.println("Tree has " + aTree.getNumberOfNodes() + " nodes");
+        System.out.printf("Root of tree contains %s%n", aTree.getRootData());
+        System.out.printf("Height of tree is %d%n", aTree.getHeight());
+        System.out.printf("Tree has %d nodes%n", aTree.getNumberOfNodes());
 
         // Display nodes in preorder
         System.out.println("A preorder traversal visits nodes in this order:");
         Iterator<String> preorder = aTree.getPreorderIterator();
         while (preorder.hasNext())
-            System.out.print(preorder.next() + " ");
+            System.out.printf("%s ", preorder.next());
         System.out.println();
     } // end TestSeg2421
 }

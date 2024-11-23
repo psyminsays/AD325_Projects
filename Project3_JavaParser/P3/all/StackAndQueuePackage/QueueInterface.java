@@ -1,4 +1,4 @@
-package StackAndQueuePackage;
+package all.StackAndQueuePackage;
 
 /**
    An interface for the ADT queue.   

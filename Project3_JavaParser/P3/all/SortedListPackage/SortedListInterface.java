@@ -32,10 +32,6 @@ public interface SortedListInterface<T extends Comparable<? super T>>
      where anEntry would occur in the list, but as a negative
      integer. */
     public int getPosition(T anEntry);
-
-    // The following methods are described in Segment 10.9 of Chapter 10
-    // as part of the ADT list:
-
     public T getEntry(int givenPosition);
     public boolean contains(T anEntry);
     public T remove(int givenPosition);

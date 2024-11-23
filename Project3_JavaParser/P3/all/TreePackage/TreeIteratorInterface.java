@@ -1,4 +1,4 @@
-package TreePackage;
+package all.TreePackage;
 
 import java.util.Iterator;
 

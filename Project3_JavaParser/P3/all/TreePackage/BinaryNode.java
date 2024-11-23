@@ -1,4 +1,4 @@
-package TreePackage;
+package all.TreePackage;
 /**
  A class that represents nodes in a binary tree.
 
